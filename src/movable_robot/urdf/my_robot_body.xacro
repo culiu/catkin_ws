@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<robot>
+  <property name="joint_damping" value="0.1"/>
+  <property name="joint_friction" value="0.0"/>
+
+  <link name="world"/>
+  <link name="base_link">
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial> 
+    <visual>
+      <geometry>
+        <box size="0.07 0.05 0.2"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <material name="blue">
+        <color rgba="0 0 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.07 0.05 0.2"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    </collision>
+  </link>
+
+  <link name="second_link">
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.07 0.05 0.3"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0.025 0.11"/>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.07 0.05 0.3"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0.025 0.11"/>
+    </collision>
+  </link>
+
+  <joint name="myrobot_joint1" type="fixed">
+    <parent link="world" />
+    <child link="base_link"/>
+    <origin rpy="0 0 0"  xyz="0.0 0.0 0.0"/>
+  </joint>
+
+  <joint name="myrobot_joint2" type="continuous">
+    <axis xyz="0 1 0"/>
+    <parent link="base_link"/>
+    <child link="second_link"/>
+    <origin rpy = "0 0.5 0" xyz="0 0.025 0.15"/>
+    <limit effort="1000" velocity="1000"/>
+    <joint_properties damping="${joint_damping}" friction="${joint_friction}"/>
+  </joint>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo reference="second_link">
+    <material>Gazebo/Green</material>
+    <selfCollide>false</selfCollide>
+    <sensor type="contact" name="second_link_contact_sensor">
+      <update_rate>50.0</update_rate>
+      <contact>
+        <collision>second_link_geom</collision>
+      </contact>
+      <plugin name="second_link_gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>50.0</updateRate>
+        <bumperTopicName>myrobot_controller/second_link_contact</bumperTopicName>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

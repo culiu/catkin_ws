@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot>
+  <transmission name="myrobot_trans" type="pr2_mechanism_model/SimpleTransmission">
+    <joint name="myrobot_joint2"/>
+    <actuator name="myrobot_motor"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+  </transmission>
+</robot>

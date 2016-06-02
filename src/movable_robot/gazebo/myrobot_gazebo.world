@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<gazebo version="1.0">
+  <world name="default">
+    <scene>
+      <ambient rgba="0.5 0.5 0.5 1"/>
+      <background rgba="0.5 0.5 0.5 1"/>
+      <shadows enabled="false"/>
+      <grid enabled="true"/>
+    </scene>
+    <physics type="ode" update_rate="1000">
+      <gravity xyz="0 0 -9.8"/>
+      <ode>
+        <solver type="quick" min_step_size="0.001" iters="10" sor="1.3"/>
+        <constraints cfm="0.0" erp="0.1" contact_max_correcting_vel="10.0" contact_surface_layer="0.001"/>
+      </ode>
+    </physics>
+
+    <!--Groud Plane-->
+
+    <model name="gplane" static="true">
+      <origin pose="0 0 0 0 0 0"/>
+      <link name="body">
+        <collision name="gplane_coll" laser_retro="2000.0">
+          <geometry>
+            <plane normal="0 0 1"/>
+          </geometry>
+          <surface>
+            <contact>
+              <ode kp="1000000.0" kd="1"/>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="gplane_vis" cast_shadows="false">
+          <geometry>
+            <plane normal="0 0 1"/>
+          </geometry>
+          <material script="Gazebo/Grey"/>
+        </visual>
+      </link>
+    </model>
+
+    <model name="object1">
+      <origin pose="0.3 0 0.1 0 0 0"/>
+      <link name="body1">
+        <inertial mass="1">
+          <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+        </inertial>
+        <collision name="body1_Surface">
+          <geometry>
+            <cylinder length="0.2" radius="0.1"/>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.799000</mu>
+                <mu2>0.799000</mu2>
+                <fdir1>0.000000 0.000000 0.000000</fdir1>
+                <slip1>0.000000</slip1>
+                <slip2>0.000000</slip2>
+              </ode>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0.000000</restitution_coefficient>
+              <threshold>100000.000000</threshold>
+            </bounce>
+            <contact>
+              <ode>
+                <soft_cfm>0.000000</soft_cfm>
+                <soft_erp>0.200000</soft_erp>
+                <kp>100000.000000</kp>
+                <kd>1.000000</kd>
+                <max_vel>100.000000</max_vel>
+                <min_depth>0.001000</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="body1_Visual">
+          <geometry>
+            <cylinder length="0.2" radius="0.1"/>
+          </geometry>
+          <material>
+            <script>Gazebo/Rocky</script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <light name="my_light" type="directional" cast_shadows="false">
+      <origin pose="0 0 30 0 0 0"/>
+      <diffuse rgba=".9 .9 .9 1"/>
+      <specular rgba=".1 .1 .1 1"/>
+      <attenuation range="20"/>
+      <direction xyz="0 0 1"/>
+    </light>
+    <light name="point_white" type="point" cast_shadows="0">
+      <origin pose="-2.000000 -2.000000 5.000000 0.000000 -0.000000 0.000000"/>
+      <diffuse rgba="0.500000 0.500000 0.500000 1.000000"/>
+      <specular rgba="0.100000 0.100000 0.100000 1.000000"/>
+      <attenuation range="10.000000" linear="0.100000" constant="0.200000" quadratic="0.000000"/>
+      <direction xyz="0.000000 0.000000 -1.000000"/>
+    </light>
+  </world>
+</gazebo>
+
+    

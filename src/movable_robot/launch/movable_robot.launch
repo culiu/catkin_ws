@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <!--  <node name="gazebo" pkg="gazebo" type="gazebo" args="$(find movable_robot)/gazebo/myrobot_gazebo.world" output="screen" respawn="false"/> -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch"></include>
+  <param name="/use_sim_time" value="true"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find movable_robot)/urdf/myrobot.urdf.xacro'"/>
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -param robot_description -model myrobot" />
+  <!--<node name="spawn_myrobot" pkg="gazebo" type="spawn_model" respawn="false" output="screen" args="-urdf -param robot_description -model myrobot" />-->
+</launch>

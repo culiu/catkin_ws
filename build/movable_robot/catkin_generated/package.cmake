@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "movable_robot")
+set(movable_robot_MAINTAINER "culiu <culiu@todo.todo>")
+set(movable_robot_DEPRECATED "")
+set(movable_robot_VERSION "0.0.0")
+set(movable_robot_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
+set(movable_robot_RUN_DEPENDS "roscpp" "rospy" "std_msgs")
+set(movable_robot_BUILDTOOL_DEPENDS "catkin")

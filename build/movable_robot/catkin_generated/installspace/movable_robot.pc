@@ -1,0 +1,8 @@
+prefix=/home/culiu/catkin_ws/install
+
+Name: movable_robot
+Description: Description of movable_robot
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/culiu/catkin_ws/install/lib 
+Requires: 
